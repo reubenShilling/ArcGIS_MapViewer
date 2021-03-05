@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div id="viewDiv"></div>
+
+@* Render ArcGIS in footer because it won't play nice with BootStrap & jQuery otherwise *@
+@section Scripts
+{
+    <style>
+          html,
+          body,
+          #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 88vh;
+            width: 99vw;
+          }
+        </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css"/>
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <script>
+        require(["esri/Map", "esri/views/MapView"], function (Map, MapView) {
+            var map = new Map({
+                basemap: "topo-vector"
+            });
+            var view = new MapView({
+                container: "viewDiv", // Reference to the view div created in step 5
+                map: map, // Reference to the map object created before the view
+                zoom: 4, // Sets zoom level based on level of detail (LOD)
+                center: [15, 65] // Sets center point of view using longitude,latitude
+            });
+        });
+    </script>
+}
